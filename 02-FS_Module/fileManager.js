@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import * as readline from "node:readline/promises";
 import { stdin, stdout } from "node:process";
 
@@ -18,6 +19,7 @@ const rl = readline.createInterface({
 });
 
 async function listItems() {
+  console.clear();
   console.log(chalk.blue("\n📂 File Manager\n"));
 
   let options = [
@@ -94,7 +96,17 @@ async function listItems() {
         console.log(`${icon} ${chalk.yellow(item.name)}`);
       });
       break;
+
+    case "8":
+      rl.close();
+      console.clear();
+      return;
+
+    default:
+      console.log(chalk.red("⚠️ Invalid Option"));
   }
+  await rl.question(chalk.gray("Press Enter to Continue..."));
+  listItems();
 }
 
-listItems()
+listItems();
